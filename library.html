@@ -124,6 +124,9 @@
   .book-card:hover .card-quote-mark{opacity:1; transform:scale(1.05)}
   .card-quote{font-size:3.8cqw; font-weight:500; line-height:1.7; color:rgba(255,255,255,.9); position:relative; z-index:1; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; max-width:100%; letter-spacing:.01em;}
   .card-author{margin-top:4cqw; font-size:3.2cqw; color:rgba(255,255,255,.4); letter-spacing:.1em; position:relative; z-index:1; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; max-width:100%;}
+  .card-hit{margin-top:2.6cqw; font-size:2.9cqw; letter-spacing:.1em; color:rgba(255,255,255,.55); position:relative; z-index:1;}
+  .card-hit b{color:rgba(255,255,255,.95); font-weight:700; font-size:3.4cqw;}
+  .card-rel{margin-top:2cqw; font-size:2.9cqw; letter-spacing:.1em; color:rgba(255,255,255,.5); position:relative; z-index:1;}
   .card-cta{position:absolute; bottom:16px; right:18px; font-size:3cqw; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.6); opacity:0; transform:translateX(-6px); transition:.35s cubic-bezier(.22,1,.36,1); pointer-events:none; z-index:3; font-weight:600;}
   .book-card:hover .card-cta{opacity:1; transform:translateX(0)}
   .card-del{position:absolute; top:10px; right:10px; z-index:5; width:26px; height:26px; border-radius:50%; border:none; background:rgba(0,0,0,.35); color:#fff; font-size:.85rem; cursor:pointer; display:none; align-items:center; justify-content:center; transition:.2s; backdrop-filter:blur(4px); line-height:1;}
@@ -204,10 +207,13 @@
   .tree-tooltip .tt-title{font-weight:700; margin-bottom:4px; font-size:.92rem; letter-spacing:-.01em}
   .tree-tooltip .tt-author{font-size:.72rem; opacity:.55; margin-bottom:8px; letter-spacing:.05em}
   .tree-tooltip .tt-quote{font-size:.75rem; opacity:.85; font-style:italic; line-height:1.55; padding-left:10px; border-left:2px solid rgba(232,200,106,.5); color:rgba(232,200,106,.9)}
+  .tree-tooltip .tt-rel{font-size:.7rem; opacity:.75; margin-top:8px; letter-spacing:.02em; color:#e8c86a; line-height:1.5}
   .tree-tooltip .tt-hint{font-size:.65rem; opacity:.4; margin-top:8px; letter-spacing:.08em; text-transform:uppercase}
 
   .map-fruit{cursor:pointer; transition:r .25s cubic-bezier(.34,1.56,.64,1)}
   .map-fruit:hover{filter:brightness(1.15)}
+  .tree-floating-btn.on{background:#e8c86a; color:#1a1a1a; border-color:#e8c86a; font-weight:700}
+  .rel-chip.same{background:rgba(232,200,106,.14); border:1px dashed rgba(232,200,106,.45)}
 
   .modal{position:fixed; inset:0; z-index:200; background:rgba(20,20,20,.88); backdrop-filter:blur(10px); display:none; flex-direction:column; animation:fadeIn .25s ease;}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -223,6 +229,26 @@
   .modal-close:hover{background:rgba(255,255,255,.18); transform:rotate(90deg)}
   .modal-body{flex:1; position:relative; background:#fff; overflow:hidden}
   .modal-body iframe{width:100%; height:100%; border:none; display:block}
+  /* —— 关联书籍条 —— */
+  .modal-related{flex:0 0 auto; display:none; gap:8px; flex-wrap:wrap; align-items:center; padding:10px 20px; background:#121212; border-top:1px solid rgba(255,255,255,.08); color:#fff; font-size:.78rem;}
+  .modal-related.show{display:flex}
+  .rel-label{letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.4); font-size:.64rem; margin-right:4px}
+  .rel-chip{display:inline-flex; align-items:center; gap:6px; padding:5px 8px 5px 12px; border-radius:999px; background:rgba(255,255,255,.08); color:rgba(255,255,255,.9); cursor:pointer; transition:.2s}
+  .rel-chip:hover{background:rgba(255,255,255,.16)}
+  .rel-x{border:none; background:transparent; color:rgba(255,255,255,.45); cursor:pointer; font-size:.9rem; line-height:1; padding:0 2px; font-family:inherit}
+  .rel-x:hover{color:#ff8a80}
+  .rel-add{border:1px dashed rgba(255,255,255,.28); background:transparent; color:rgba(255,255,255,.62); padding:5px 12px; border-radius:999px; font-size:.76rem; font-family:inherit; cursor:pointer; transition:.2s}
+  .rel-add:hover{border-color:rgba(255,255,255,.6); color:#fff}
+  .rel-picker-mask{position:fixed; inset:0; z-index:260; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:24px}
+  .rel-picker{width:100%; max-width:560px; max-height:72vh; display:flex; flex-direction:column; gap:10px; background:#1c1c1c; border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:16px; box-shadow:0 24px 80px rgba(0,0,0,.6)}
+  .rel-picker-head{display:flex; align-items:center; justify-content:space-between; color:#fff; font-size:.82rem; letter-spacing:.06em}
+  .rel-picker input{width:100%; padding:9px 12px; border-radius:9px; border:1px solid rgba(255,255,255,.15); background:rgba(0,0,0,.35); color:#fff; font-size:.82rem; font-family:inherit; outline:none}
+  .rel-list{display:flex; flex-wrap:wrap; gap:6px; overflow-y:auto; max-height:52vh; align-content:flex-start}
+  .rel-item{border:1px solid rgba(255,255,255,.14); background:transparent; color:rgba(255,255,255,.72); padding:5px 11px; border-radius:999px; font-size:.74rem; font-family:inherit; cursor:pointer; transition:.18s}
+  .rel-item:hover{border-color:rgba(255,255,255,.5); color:#fff}
+  .rel-item.on{background:#e8c86a; border-color:#e8c86a; color:#1a1a1a; font-weight:600}
+  .rel-done{padding:8px; border-radius:9px; border:none; background:rgba(255,255,255,.14); color:#fff; font-size:.8rem; font-family:inherit; cursor:pointer}
+  .rel-done:hover{background:rgba(255,255,255,.22)}
   .modal-empty{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:#faf8f5; color:var(--muted); text-align:center; padding:24px;}
   .modal-empty .icon{width:64px; height:64px; border-radius:50%; background:linear-gradient(160deg, #f4f0ea, #e8e0d6); display:grid; place-items:center; font-size:1.8rem; opacity:.7;}
   .modal-empty h3{font-size:1rem; color:var(--ink); margin-bottom:4px; font-weight:600}
@@ -806,6 +832,7 @@
     <button class="modal-close" id="modalClose">×</button>
   </div>
   <div class="modal-body" id="modalBody"></div>
+  <div class="modal-related" id="modalRelated"></div>
 </div>
 
 <div class="upload-modal" id="uploadModal">
@@ -1010,6 +1037,7 @@ async function init(){
     ...uploaded.map(b => ({ ...b, isBuiltin: false })),
   ];
 
+  buildFullTextIndex();
   renderNav();
   render();
   updateStats();
@@ -1098,13 +1126,54 @@ function getBooksByCat(cat){
 }
 function getBooksBySubCat(cat, subcat){ return getBooksByCat(cat).filter(b => b.subcategory === subcat); }
 function getBooksBySubCat2(cat, subcat, subcat2){ return getBooksBySubCat(cat, subcat).filter(b => b.subcategory2 === subcat2); }
+
+/* —— 全文搜索索引（正文）—— */
+const fullTextIndex = new Map();   // id → 去标签后的纯文本（小写）
+function stripForSearch(html){
+  if (!html) return '';
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+function buildFullTextIndex(){
+  fullTextIndex.clear();
+  for (const b of allBooks){
+    fullTextIndex.set(b.id, stripForSearch(b.noteContent) + ' ' + stripForSearch(b.axesContent));
+  }
+}
+/* 取某本书的检索文本；缓存未命中时按需构建并写入缓存。
+   这样任何新增书籍的入口（网页上传 / 导入备份 / 未来新增）都不会漏建索引。 */
+function bookText(b){
+  let t = fullTextIndex.get(b.id);
+  if (t === undefined) {
+    t = stripForSearch(b.noteContent) + ' ' + stripForSearch(b.axesContent);
+    fullTextIndex.set(b.id, t);
+  }
+  return t;
+}
+function countOccurrences(hay, needle){
+  if (!hay || !needle) return 0;
+  let n = 0, i = 0;
+  while ((i = hay.indexOf(needle, i)) !== -1) { n++; i += needle.length; if (n >= 999) break; }
+  return n;
+}
 function getVisibleBooks(){
   let list = getBooksByCat(currentCat);
   if (currentSubCat) list = list.filter(b => b.subcategory === currentSubCat);
   if (currentSubCat2) list = list.filter(b => b.subcategory2 === currentSubCat2);
-  if (currentSearch.trim()) {
-    const q = currentSearch.trim().toLowerCase();
-    list = list.filter(b => b.title.toLowerCase().includes(q) || (b.author || '').toLowerCase().includes(q));
+  const q = currentSearch.trim().toLowerCase();
+  if (q) {
+    // 有搜索词时改为全书范围检索（不受当前分类限制），并匹配正文
+    list = allBooks.filter(b => {
+      const meta = [b.title, b.author, b.subtitle, b.bookTag, b.quote].filter(Boolean).join(' ').toLowerCase();
+      if (meta.includes(q)) return true;
+      return bookText(b).includes(q);
+    });
   }
   return list;
 }
@@ -1248,6 +1317,14 @@ function renderBookCard(b){
     --glow: ${t.glow || 'rgba(255,255,255,.08)'};
   `;
   const titleHtml = b.titleHtml || escapeHtml(b.title);
+  const relN = relatedIdsOf(b).length;
+  const relBadge = relN ? `<div class="card-rel">↔ 关联 ${relN} 本</div>` : '';
+  const qHit = currentSearch.trim().toLowerCase();
+  let hitBadge = '';
+  if (qHit) {
+    const n = countOccurrences(bookText(b), qHit);
+    if (n > 0) hitBadge = `<div class="card-hit">正文命中 <b>${n}</b> 处</div>`;
+  }
   return `
     <div class="book-card" data-id="${b.id}" style="${styleVars}">
       <div class="book-spine"></div>
@@ -1260,6 +1337,8 @@ function renderBookCard(b){
         <div class="card-quote">${escapeHtml(b.quote)}</div>
       ` : ''}
       ${b.author ? `<div class="card-author">—— ${escapeHtml(b.author)}</div>` : ''}
+      ${hitBadge}
+      ${relBadge}
       <div class="card-cta">打开 →</div>
     </div>`;
 }
@@ -1369,6 +1448,41 @@ function drawRoundedNode(parent, x, y, w, h, r, fill, stroke, textLines, textCol
     group.appendChild(text);
   });
   parent.appendChild(group);
+}
+
+/* 关联聚焦：悬停时只让「这本书 + 它的关联书」保持清晰，其余淡出。
+   刻意不画连线——极坐标环状布局下，跨书连线必然穿过其他节点，越画越乱。 */
+const mapNodeEls = new Map();   // bookId -> { g, fruit, title }
+function focusNode(bookId){
+  if (!mapNodeEls.size) return;
+  const book = allBooks.find(b => b.id === bookId);
+  if (!book) return;
+  const keep = new Set(relatedIdsOf(book));
+  for (const b of sameAuthorBooksOf(book)) keep.add(b.id);
+  keep.add(bookId);
+  mapNodeEls.forEach((el, id) => {
+    const on = keep.has(id);
+    el.g.setAttribute('opacity', on ? '1' : '0.08');
+    if (id === bookId) {
+      el.fruit.setAttribute('r', '15');
+      el.fruit.setAttribute('stroke', '#ffffff');
+      el.fruit.setAttribute('stroke-width', '1.6');
+    } else if (on) {
+      el.fruit.setAttribute('r', '13');
+      el.fruit.setAttribute('stroke', '#e8c86a');
+      el.fruit.setAttribute('stroke-width', '2');
+    } else {
+      el.fruit.setAttribute('r', '11');
+    }
+  });
+}
+function clearNodeFocus(){
+  mapNodeEls.forEach((el) => {
+    el.g.setAttribute('opacity', '1');
+    el.fruit.setAttribute('r', '11');
+    el.fruit.setAttribute('stroke', 'rgba(255,255,255,.55)');
+    el.fruit.setAttribute('stroke-width', '1.3');
+  });
 }
 
 function renderMindMap(){
@@ -1560,12 +1674,19 @@ function renderMindMap(){
     drawCurve(content, subPos.x, subPos.y, bookPos.x, bookPos.y, catColor.bgEnd, 1.4, 0.55);
   });
 
+  // ===== 关联表达：不画线 =====
+  // 书是挤在圆环上的（内外双圈交错），任何跨书连线都会穿过别的节点。
+  // 因此改用「悬停聚焦」：默认不增加任何视觉元素，只在鼠标停留时高亮这本书及其关联书。
+
   // 书籍
+  mapNodeEls.clear();
   bookLayouts.forEach(({ book, catColor, bookAngle, radius }) => {
     const bookPos = polar(radius, bookAngle);
     const bookColor = book.theme ? book.theme.accent : catColor.accent;
 
-    content.appendChild(svgEl('circle', {
+    const g = svgEl('g', { 'data-node': book.id });
+
+    g.appendChild(svgEl('circle', {
       cx: bookPos.x, cy: bookPos.y, r: 18,
       fill: bookColor, opacity: 0.2,
       filter: 'url(#mapSoftGlow)',
@@ -1580,9 +1701,9 @@ function renderMindMap(){
       class: 'map-fruit',
       'data-book-id': book.id,
     });
-    content.appendChild(fruit);
+    g.appendChild(fruit);
 
-    content.appendChild(svgEl('circle', {
+    g.appendChild(svgEl('circle', {
       cx: bookPos.x - 3, cy: bookPos.y - 3, r: 3,
       fill: 'rgba(255,255,255,.75)',
       'pointer-events': 'none',
@@ -1605,15 +1726,18 @@ function renderMindMap(){
     });
     const shortTitle = book.title.length > 12 ? book.title.slice(0, 11) + '…' : book.title;
     title.textContent = shortTitle;
-    content.appendChild(title);
+    g.appendChild(title);
+
+    content.appendChild(g);
+    mapNodeEls.set(book.id, { g, fruit, title });
 
     fruit.addEventListener('mouseenter', (e) => {
-      fruit.setAttribute('r', 15);
+      focusNode(book.id);
       showTooltip(e, book);
     });
     fruit.addEventListener('mousemove', moveTooltip);
     fruit.addEventListener('mouseleave', () => {
-      fruit.setAttribute('r', 11);
+      clearNodeFocus();
       hideTooltip();
     });
     fruit.addEventListener('click', (e) => {
@@ -1711,10 +1835,18 @@ function setupMapInteraction(){
 const tooltipEl = document.getElementById('treeTooltip');
 function showTooltip(e, book){
   const t = book.theme || getCategoryColor(book.category);
+  const relNames = [];
+  const seenIds = new Set(relatedIdsOf(book));
+  for (const b of sameAuthorBooksOf(book)) seenIds.add(b.id);
+  seenIds.forEach((id) => {
+    const b = allBooks.find(x => x.id === id);
+    if (b) relNames.push(b.title);
+  });
   tooltipEl.innerHTML = `
     <div class="tt-title">${escapeHtml(book.title)}</div>
     ${book.author ? `<div class="tt-author">${escapeHtml(book.author)}</div>` : ''}
     ${book.quote ? `<div class="tt-quote">${escapeHtml(book.quote)}</div>` : ''}
+    ${relNames.length ? `<div class="tt-rel">关联 · ${escapeHtml(relNames.slice(0, 6).join('、'))}${relNames.length > 6 ? ' 等' : ''}</div>` : ''}
     <div class="tt-hint">点击打开 →</div>
   `;
   tooltipEl.style.borderColor = hexToRgba(t.accent, 0.5);
@@ -1747,6 +1879,114 @@ function showGridView(){
 /* =====================================================================
    13. 详情弹窗
    ===================================================================== */
+/* —— 书籍关联：只存一个方向，显示时合并反向（拉取式，不维护双向同步） —— */
+function relatedIdsOf(book){
+  const out = new Set(Array.isArray(book.related) ? book.related : []);
+  out.delete(book.id);
+  for (const b of allBooks) {
+    if (b.id !== book.id && Array.isArray(b.related) && b.related.includes(book.id)) out.add(b.id);
+  }
+  return [...out];
+}
+function relatedBooksOf(book){
+  return relatedIdsOf(book).map(id => allBooks.find(b => b.id === id)).filter(b => b && !b.isBuiltin);
+}
+/* 同作者：纯计算、不落库（避免"改了作者要记得同步关联"这类状态漂移） */
+function sameAuthorBooksOf(book){
+  const a = String(book.author || '').trim();
+  if (!a) return [];
+  return allBooks.filter(b => b.id !== book.id && !b.isBuiltin && String(b.author || '').trim() === a);
+}
+async function persistRelated(book){
+  await dbPut({
+    id: book.id, title: book.title, titleHtml: book.titleHtml,
+    author: book.author, category: book.category,
+    subcategory: book.subcategory, subcategory2: book.subcategory2,
+    bookTag: book.bookTag, subtitle: book.subtitle, quote: book.quote,
+    theme: book.theme,
+    noteContent: book.noteContent, axesContent: book.axesContent,
+    related: Array.isArray(book.related) ? book.related : [],
+  });
+}
+async function toggleRelated(otherId){
+  const book = currentBook;
+  if (!book || otherId === book.id) return;
+  const other = allBooks.find(b => b.id === otherId);
+  book.related = Array.isArray(book.related) ? book.related : [];
+  const onBook = book.related.includes(otherId);
+  const onOther = !!(other && Array.isArray(other.related) && other.related.includes(book.id));
+  if (onBook || onOther) {
+    if (onBook) { book.related = book.related.filter(id => id !== otherId); await persistRelated(book); }
+    if (onOther) { other.related = other.related.filter(id => id !== book.id); await persistRelated(other); }
+  } else {
+    book.related.push(otherId);
+    await persistRelated(book);
+  }
+  renderRelated();
+  render();
+  if (currentView === 'tree') renderMindMap();
+}
+function renderRelated(){
+  const box = document.getElementById('modalRelated');
+  if (!box) return;
+  const book = currentBook;
+  if (!book || book.isBuiltin) { box.className = 'modal-related'; box.innerHTML = ''; return; }
+  const rel = relatedBooksOf(book);
+  const sameA = sameAuthorBooksOf(book);
+  box.className = 'modal-related show';
+  box.innerHTML = `
+    <span class="rel-label">关联书籍</span>
+    ${rel.map(b => `<span class="rel-chip" data-open="${b.id}" title="打开这本">${escapeHtml(b.title)}<button class="rel-x" data-unlink="${b.id}" title="取消关联">×</button></span>`).join('')}
+    <button class="rel-add" id="relAddBtn">＋ 关联一本书</button>
+    ${sameA.length ? `<span class="rel-label" style="margin-left:10px">同作者</span>${sameA.map(b => `<span class="rel-chip same" data-open="${b.id}" title="同作者，自动关联">${escapeHtml(b.title)}</span>`).join('')}` : ''}`;
+  box.querySelectorAll('.rel-chip').forEach(el => el.addEventListener('click', (ev) => {
+    if (ev.target.closest('[data-unlink]')) return;
+    openBook(el.dataset.open);
+  }));
+  box.querySelectorAll('[data-unlink]').forEach(el => el.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    toggleRelated(el.dataset.unlink);
+  }));
+  const addBtn = document.getElementById('relAddBtn');
+  if (addBtn) addBtn.addEventListener('click', openRelatedPicker);
+}
+function openRelatedPicker(){
+  const book = currentBook;
+  if (!book || book.isBuiltin) return;
+  document.querySelectorAll('.rel-picker-mask').forEach(n => n.remove());
+  const others = allBooks.filter(b => b.id !== book.id && !b.isBuiltin)
+    .sort((a, b) => String(a.title).localeCompare(String(b.title), 'zh'));
+  const mask = document.createElement('div');
+  mask.className = 'rel-picker-mask';
+  mask.innerHTML = `
+    <div class="rel-picker">
+      <div class="rel-picker-head"><span>关联到《${escapeHtml(book.title)}》</span><span style="opacity:.45;font-size:.72rem">点一次关联，再点一次取消</span></div>
+      <input type="text" id="relFilter" placeholder="输入书名或作者筛选…">
+      <div class="rel-list" id="relList"></div>
+      <button class="rel-done" id="relDone">完成</button>
+    </div>`;
+  document.body.appendChild(mask);
+  const listEl = mask.querySelector('#relList');
+  const input = mask.querySelector('#relFilter');
+  const paint = (q) => {
+    const k = String(q || '').trim().toLowerCase();
+    const linked = new Set(relatedIdsOf(currentBook));
+    const hits = others.filter(b => !k || (String(b.title) + ' ' + String(b.author || '')).toLowerCase().includes(k));
+    listEl.innerHTML = hits.length
+      ? hits.map(b => `<button class="rel-item ${linked.has(b.id) ? 'on' : ''}" data-link="${b.id}">${escapeHtml(b.title)}</button>`).join('')
+      : '<span style="opacity:.45;font-size:.75rem">没有匹配的书</span>';
+    listEl.querySelectorAll('[data-link]').forEach(el => el.addEventListener('click', async () => {
+      await toggleRelated(el.dataset.link);
+      paint(input.value);
+    }));
+  };
+  paint('');
+  input.addEventListener('input', () => paint(input.value));
+  mask.querySelector('#relDone').addEventListener('click', () => mask.remove());
+  mask.addEventListener('click', (ev) => { if (ev.target === mask) mask.remove(); });
+  setTimeout(() => input.focus(), 30);
+}
+
 function openBook(id){
   const book = allBooks.find(b => b.id === id);
   if (!book) return;
@@ -1761,6 +2001,7 @@ function openBook(id){
     t.classList.toggle('active', t.dataset.tab === 'note');
   });
   renderModalBody();
+  renderRelated();
   document.getElementById('modal').classList.add('open');
   hideTooltip();
 }
@@ -1822,12 +2063,14 @@ function uploadForCurrent(type){
     const content = await file.text();
     if (type === 'note') book.noteContent = content;
     else book.axesContent = content;
+    fullTextIndex.delete(book.id);   // 正文变了 → 索引作废，下次搜索时按新内容重建
     await dbPut({
       id: book.id, title: book.title, titleHtml: book.titleHtml,
       author: book.author, category: book.category,
       subcategory: book.subcategory, subcategory2: book.subcategory2,
       bookTag: book.bookTag, subtitle: book.subtitle, quote: book.quote,
       theme: book.theme,
+      related: Array.isArray(book.related) ? book.related : [],
       noteContent: book.noteContent, axesContent: book.axesContent,
       isBuiltin: book.isBuiltin, overridden: true,
     });
@@ -1928,6 +2171,7 @@ async function submitUpload(){
     id, title, titleHtml: escapeHtml(title),
     author, category, subcategory, subcategory2,
     bookTag, subtitle, quote, theme,
+    related: [],
     noteContent: noteFile ? await noteFile.text() : null,
     axesContent: axesFile ? await axesFile.text() : null,
   };
@@ -1976,6 +2220,7 @@ async function exportBackup(){
       author: b.author, category: b.category,
       subcategory: b.subcategory, subcategory2: b.subcategory2,
       bookTag: b.bookTag, subtitle: b.subtitle, quote: b.quote, theme: b.theme,
+      related: Array.isArray(b.related) ? b.related : [],
       noteContent: b.noteContent, axesContent: b.axesContent,
     })),
   };
@@ -2007,6 +2252,7 @@ async function importBackup(file){
       })),
       ...uploaded.map(b => ({ ...b, isBuiltin: false })),
     ];
+    buildFullTextIndex();
     renderNav(); render(); updateStats();
     if (currentView === 'tree') renderMindMap();
     toast(`已导入 ${count} 本书`);
